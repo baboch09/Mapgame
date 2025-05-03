@@ -1,0 +1,37 @@
+[
+  {
+    "id": "1",
+    "name": "CyberZone",
+    "address": "Невский проспект, 100, Санкт-Петербург",
+    "imageURL": "https://images.unsplash.com/photo-1519125323398-675f0ddb6308",
+    "hasLicense": true
+  },
+  {
+    "id": "2",
+    "name": "GameHub",
+    "address": "Лиговский проспект, 50, Санкт-Петербург",
+    "imageURL": "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
+    "hasLicense": true
+  },
+  {
+    "id": "3",
+    "name": "PixelPlay",
+    "address": "ул. Рубинштейна, 20, Санкт-Петербург",
+    "imageURL": "https://images.unsplash.com/photo-1465101046530-73398c7f28ca",
+    "hasLicense": false
+  },
+  {
+    "id": "4",
+    "name": "TechGaming",
+    "address": "ул. Марата, 15, Санкт-Петербург",
+    "imageURL": "https://images.unsplash.com/photo-1511512578047-dfb367046420",
+    "hasLicense": true
+  },
+  {
+    "id": "5",
+    "name": "GameWorld",
+    "address": "ул. Восстания, 1, Санкт-Петербург",
+    "imageURL": "https://images.unsplash.com/photo-1464983953574-0892a716854b",
+    "hasLicense": true
+  }
+] 
