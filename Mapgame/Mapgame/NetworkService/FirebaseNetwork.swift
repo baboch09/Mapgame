@@ -35,4 +35,23 @@ public final class FirebaseNetwork {
       }
     }
   }
+  
+  func fetchPromos(completion: @escaping (Result<[(String, Promotion)], Error>) -> Void) {
+    provider.request(.getPromos) { result in
+      switch result {
+      case .success(let response):
+        do {
+          let decoded = try JSONDecoder().decode([String: Promotion].self, from: response.data)
+          let promos = decoded.map { promoId, promo in
+            (promoId: promoId, promo: promo)
+          }
+          completion(.success(promos))
+        } catch {
+          completion(.failure(error))
+        }
+      case .failure(let error):
+        completion(.failure(error))
+      }
+    }
+  }
 }

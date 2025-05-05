@@ -1,7 +1,11 @@
 
 import UIKit
+import Lottie
 
 class TabBarController: UITabBarController {
+  var lotties: [TabBarItemView] = []
+  private let animationNames: [TabBarItemType] = [.home, .promo, .profile]
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -10,15 +14,20 @@ class TabBarController: UITabBarController {
     setupTabBarAppeareance()
   }
   
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    setupTabBarItems()
+  }
+  
   private func setupViewControllers() {
     let mainVC = MainAssembly().assembly()
-    mainVC.tabBarItem = UITabBarItem(title: "Главная", image: UIImage(systemName: "house"), selectedImage: UIImage(systemName: "house.fill"))
+    mainVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(), selectedImage: UIImage())
     
     let promotionsVC = PromotionsAssembly().assembly()
-    promotionsVC.tabBarItem = UITabBarItem(title: "Акции", image: UIImage(systemName: "tag"), selectedImage: UIImage(systemName: "tag.fill"))
+    promotionsVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(), selectedImage: UIImage())
     
     let profileVC = UIViewController() // Заглушка для профиля
-    profileVC.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person"), selectedImage: UIImage(systemName: "person.fill"))
+    profileVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(), selectedImage: UIImage())
     
     viewControllers = [
       mainVC,
@@ -28,48 +37,79 @@ class TabBarController: UITabBarController {
   }
   
   func setupTabBarAppeareance() {
-    let itemCount: CGFloat = 4
+    guard let items = tabBar.items else { return }
+    
+    let itemCount = CGFloat(items.count)
     let posX: CGFloat = 16
     let posY: CGFloat = 8
     let width = tabBar.bounds.width - posX * 2
     let height = tabBar.bounds.height + posY * 2
-    let blurRect = CGRect(
+    
+    // Blur
+    let blurEffect = UIBlurEffect(style: .light)
+    let blurView = UIVisualEffectView(effect: blurEffect)
+    blurView.frame = CGRect(
       x: 0,
       y: tabBar.bounds.minY - posY,
       width: tabBar.bounds.width,
       height: tabBar.bounds.height + height
     )
+    tabBar.insertSubview(blurView, at: 0)
+    
+    //Tabbar
+    let tabBarLayer = CAShapeLayer()
     let tabBarRect = CGRect(
       x: posX,
       y: tabBar.bounds.minY - posY,
       width: width,
       height: height
     )
-    
-    // Blur
-    let blurEffect = UIBlurEffect(style: .light)
-    let blurView = UIVisualEffectView(effect: blurEffect)
-    blurView.frame = blurRect
-    blurView.layer.cornerRadius = 0
-    blurView.clipsToBounds = true
-    tabBar.insertSubview(blurView, at: 0)
-    
-    //Tabbar
-    let roundLayer = CAShapeLayer()
-    let bezierPath = UIBezierPath(
+    let tabBarPath = UIBezierPath(
       roundedRect: tabBarRect,
       cornerRadius: 12
     )
-    roundLayer.path = bezierPath.cgPath
-    tabBar.layer.insertSublayer(roundLayer, at: 1)
+    tabBarLayer.path = tabBarPath.cgPath
+    tabBarLayer.fillColor = UIColor.rayFlower.cgColor
+    tabBar.layer.insertSublayer(tabBarLayer, at: 1)
     
     
     tabBar.itemWidth = width / itemCount
-    tabBar.itemPositioning = .centered
+  }
+  
+  func setupTabBarItems() {
+    guard let tabBarItems = tabBar.items else { return }
     
-    roundLayer.fillColor = UIColor.rayFlower.cgColor
+    let tabBarButtons = tabBar.subviews.filter { String(describing: type(of: $0)) == "UITabBarButton" }
+    guard tabBarButtons.count == tabBarItems.count else { return }
     
-    tabBar.tintColor = .black
-    tabBar.unselectedItemTintColor = .gray
+    for (index, button) in tabBarButtons.enumerated() {
+      
+      let lottieView = TabBarItemView(viewType: animationNames[index])
+      lottieView.setColor(selectedIndex == index ? .black : .gray)
+      lottieView.translatesAutoresizingMaskIntoConstraints = false
+      button.addSubview(lottieView)
+      
+      NSLayoutConstraint.activate([
+        lottieView.centerXAnchor.constraint(equalTo: button.centerXAnchor)
+      ])
+      
+      lotties.append(lottieView)
+    }
+    lotties[selectedIndex].play()
+  }
+}
+
+extension TabBarController {
+  override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+    guard let index = tabBar.items?.firstIndex(of: item) else { return }
+    for (i, view) in lotties.enumerated() {
+      if i == index {
+        view.setColor(.black)
+        view.play()
+      } else {
+        view.setColor(.gray)
+        view.stop()
+      }
+    }
   }
 }
