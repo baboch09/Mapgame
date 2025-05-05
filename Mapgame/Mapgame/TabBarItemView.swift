@@ -31,18 +31,16 @@ class TabBarItemView: UIView {
     setupConstraints(type: animationType)
   }
   
-  func setColor(_ uiColor: UIColor) {
-    let colorValue = uiColor.lottieColorValue
+  func setColor(_ isSelected: Bool) {
+    let colorValue = isSelected ? UIColor.black.lottieColorValue : UIColor.gray.lottieColorValue
+    let redColor = isSelected ? UIColor.red.lottieColorValue : UIColor.rayFlower.lottieColorValue
     
-    let keypaths = [
-        "**.Fill 1.Color",
-        "**.Stroke 1.Color"
-    ]
+    let provider = ColorValueProvider(colorValue)
+    animationView.setValueProvider(provider, keypath: AnimationKeypath(keypath: "**.Stroke 1.Color"))
     
-    for path in keypaths {
-      let provider = ColorValueProvider(colorValue)
-      animationView.setValueProvider(provider, keypath: AnimationKeypath(keypath: path))
-    }
+    let redProvider = ColorValueProvider(redColor)
+    animationView.setValueProvider(redProvider, keypath: AnimationKeypath(keypath: "**.Fill 1.Color"))
+    
   }
   
   func play() {

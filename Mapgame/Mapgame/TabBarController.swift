@@ -9,6 +9,7 @@ class TabBarController: UITabBarController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    delegate = self
     
     setupViewControllers()
     setupTabBarAppeareance()
@@ -85,7 +86,7 @@ class TabBarController: UITabBarController {
     for (index, button) in tabBarButtons.enumerated() {
       
       let lottieView = TabBarItemView(viewType: animationNames[index])
-      lottieView.setColor(selectedIndex == index ? .black : .gray)
+      lottieView.setColor(selectedIndex == index)
       lottieView.translatesAutoresizingMaskIntoConstraints = false
       button.addSubview(lottieView)
       
@@ -99,16 +100,14 @@ class TabBarController: UITabBarController {
   }
 }
 
-extension TabBarController {
-  override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-    guard let index = tabBar.items?.firstIndex(of: item) else { return }
-    for (i, view) in lotties.enumerated() {
-      if i == index {
-        view.setColor(.black)
-        view.play()
+extension TabBarController : UITabBarControllerDelegate {
+  func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+    for (index, lottie) in lotties.enumerated() {
+      lottie.setColor(index == selectedIndex)
+      if index == selectedIndex {
+        lottie.play()
       } else {
-        view.setColor(.gray)
-        view.stop()
+        lottie.stop()
       }
     }
   }
