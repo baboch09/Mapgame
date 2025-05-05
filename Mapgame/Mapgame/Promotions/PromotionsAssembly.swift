@@ -8,17 +8,17 @@
 import UIKit
 
 final class PromotionsAssembly {
-    func assembly() -> UIViewController {
-        let viewController = PromotionsViewController()
-        let presenter = PromotionsPresenter(view: viewController)
-        let interactor = PromotionsInteractor(presenter: presenter)
-        
-        viewController.interactor = interactor
-      
-        let navigationController = UINavigationController(rootViewController: viewController)
-        navigationController.navigationBar.prefersLargeTitles = true
-        navigationController.navigationBar.isHidden = true
-        
-        return navigationController
-    }
-} 
+  func assembly() -> UIViewController {
+    let viewController = PromotionsViewController()
+    let presenter = PromotionsPresenter(view: viewController)
+    let interactor = PromotionsInteractor(
+      presenter: presenter,
+      networkService: FirebaseNetwork()
+    )
+    
+    viewController.interactor = interactor
+    
+    
+    return viewController
+  }
+}

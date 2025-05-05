@@ -13,6 +13,7 @@
 		670E2ED72DC617B2003D0AFE /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 670E2ED62DC617B2003D0AFE /* FirebaseDatabase */; };
 		670E2ED92DC617B2003D0AFE /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 670E2ED82DC617B2003D0AFE /* FirebaseStorage */; };
 		670E2EE12DC62E71003D0AFE /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 670E2EE02DC62E71003D0AFE /* Moya */; };
+		670E2F8C2DC78DDD003D0AFE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 670E2F8B2DC78DDD003D0AFE /* Lottie */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				670E2ED12DC617B2003D0AFE /* FirebaseAnalytics in Frameworks */,
+				670E2F8C2DC78DDD003D0AFE /* Lottie in Frameworks */,
 				670E2ED52DC617B2003D0AFE /* FirebaseCore in Frameworks */,
 				670E2EE12DC62E71003D0AFE /* Moya in Frameworks */,
 				670E2ED72DC617B2003D0AFE /* FirebaseDatabase in Frameworks */,
@@ -99,6 +101,7 @@
 				670E2ED62DC617B2003D0AFE /* FirebaseDatabase */,
 				670E2ED82DC617B2003D0AFE /* FirebaseStorage */,
 				670E2EE02DC62E71003D0AFE /* Moya */,
+				670E2F8B2DC78DDD003D0AFE /* Lottie */,
 			);
 			productName = Mapgame;
 			productReference = 679CA0E92DBD0DD000CA9FDC /* Mapgame.app */;
@@ -131,6 +134,7 @@
 			packageReferences = (
 				670E2ECF2DC617B2003D0AFE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				670E2EDF2DC62E71003D0AFE /* XCRemoteSwiftPackageReference "Moya" */,
+				670E2F8A2DC78DDD003D0AFE /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 679CA0EA2DBD0DD000CA9FDC /* Products */;
@@ -384,6 +388,14 @@
 				minimumVersion = 15.0.3;
 			};
 		};
+		670E2F8A2DC78DDD003D0AFE /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -416,6 +428,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 670E2EDF2DC62E71003D0AFE /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = Moya;
+		};
+		670E2F8B2DC78DDD003D0AFE /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 670E2F8A2DC78DDD003D0AFE /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

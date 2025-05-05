@@ -104,7 +104,7 @@ class ClubDetailViewController: UIViewController {
   
   private let callButton: UIButton = {
     let button = UIButton(type: .system)
-    button.setTitle("Call Club", for: .normal)
+    button.setTitle("Набрать в клуб", for: .normal)
     button.titleLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
     button.backgroundColor = .rayFlower
     button.setTitleColor(.white, for: .normal)
@@ -128,10 +128,17 @@ class ClubDetailViewController: UIViewController {
     configureWithClub()
   }
   
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+    navigationController?.navigationBar.isHidden = true
+    
+  }
+  
   private func setupViews() {
     navigationController?.navigationBar.isHidden = false
+    navigationController?.navigationItem.backBarButtonItem?.title = "Назад"
     view.backgroundColor = .systemBackground
-    title = "Club Details"
+    title = club.name
     
     view.addSubview(scrollView)
     scrollView.addSubview(contentView)
